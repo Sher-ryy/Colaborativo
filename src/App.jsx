@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import Button from './components/Button';
+import "./App.css";
 
 const initialProducts = [
   { id: 1, name: 'Playera Naruto', price: 290, category: 'Anime', type: 'Playera', color: 'Amarillo', size: 'M' },
@@ -8,7 +10,7 @@ const initialProducts = [
   { id: 5, name: 'Sudadera Crepusculo', price: 480, category: 'Pelicula', type: 'Sudadera', color: 'Verde', size: 'XXL' },
   { id: 6, name: 'Sudadera Lana del Rey', price: 480, category: 'Artista', type: 'Sudadera', color: 'Rojo', size: 'S' },
 
-  // Agrega más productos según sea necesario
+  // Agregar más productos según sea necesario
 ];
 
 const App = () => {
@@ -59,8 +61,19 @@ const App = () => {
           </li>
         ))}
       </ul>
+<>
+ <Button label="Derecha" onClick= {() => console.log("Derecha")}/>
+</>
+<>
+ <Button label="Izquierda"/>
+</>
+
+
     </div>
   );
 };
+
+
+
 
 export default App;

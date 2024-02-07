@@ -1,9 +1,12 @@
-import React from "react"
+import React from 'react';
 
-const Button = ({ label, onClick }) => {
-   return (
-    <button onClick={onClick}>{label}</button>
-   )
-}
+const Button = ({ onIncrement, onDecrement }) => {
+  return (
+    <div>
+      <button onClick={onIncrement}>+</button>
+      <button onClick={onDecrement}>-</button>
+    </div>
+  );
+};
 
-export default Button
+export default Button;

@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import Button from './components/Button';
+import Div from './components/Div';
+import Input from './components/Input';
 import "./App.css";
+
 
 const initialProducts = [
   { id: 1, name: 'Playera Naruto', price: 290, category: 'Anime', type: 'Playera', color: 'Amarillo', size: 'M' },
@@ -14,9 +17,24 @@ const initialProducts = [
 ];
 
 const App = () => {
+  const [counter, setCounter] = useState(0);
   const [products, setProducts] = useState(initialProducts);
   const [filter, setFilter] = useState({ price: '', category: '', type: '', color: '', size: '' });
 
+// Función handleIncrement para la lógica de incremento
+const handleIncrement = () => {
+  if (counter < 100) {
+    setCounter(counter + 1);
+  }
+};
+
+// Función handleDecrement para la lógica de decremento
+const handleDecrement = () => {
+  if (counter > 0) {
+    setCounter(counter - 1);
+  }
+};
+ 
   const handleFilterChange = (key, value) => {
     setFilter({ ...filter, [key]: value });
   };
@@ -61,19 +79,15 @@ const App = () => {
           </li>
         ))}
       </ul>
-<>
- <Button label="Derecha" onClick= {() => console.log("Derecha")}/>
-</>
-<>
- <Button label="Izquierda"/>
-</>
 
-
+      <div>
+      <div>
+      <Button onIncrement={handleIncrement} onDecrement={handleDecrement} />
+      <button>{counter}</button>
     </div>
-  );
-};
-
-
+    </div>
+    </div>
+  )};
 
 
 export default App;

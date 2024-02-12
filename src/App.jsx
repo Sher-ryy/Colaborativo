@@ -5,12 +5,14 @@ import Input from './components/Input';
 import "./App.css";
 
 const initialProducts = [
-  { id: 1, name: 'Playera Naruto', price: 290, category: 'Anime', type: 'Playera', color: 'Amarillo', size: 'M' },
-  { id: 2, name: 'Playera Natanael Cano', price: 290, category: 'Artista', type: 'Playera', color: 'Rojo', size: 'L' },
-  { id: 3, name: 'Totebag Stray Kids', price: 200, category: 'Kpop', type: 'Totebag', color: 'Negro', size: 'Unisex' },
-  { id: 4, name: 'Playera BTS', price: 290, category: 'Kpop', type: 'Playera', color: 'Negro', size: 'L' },
-  { id: 5, name: 'Sudadera Crepusculo', price: 480, category: 'Pelicula', type: 'Sudadera', color: 'Verde', size: 'XXL' },
-  { id: 6, name: 'Sudadera Lana del Rey', price: 480, category: 'Artista', type: 'Sudadera', color: 'Rojo', size: 'S' },
+    { id: 1, name: 'Playera Naruto', price: 290, category: 'Anime', type: 'Playera', color: 'Amarillo', size: 'M', image: 'url_de_la_imagen_1', description: 'Descripción de la playera Naruto' },
+    { id: 2, name: 'Playera Natanael Cano', price: 290, category: 'Artista', type: 'Playera', color: 'Rojo', size: 'L', image: 'url_de_la_imagen_2', description: 'Descripción de la playera Natanael Cano' },
+    // Agrega más productos con sus respectivas imágenes y descripciones
+  
+    { id: 3, name: 'Totebag Stray Kids', price: 200, category: 'Kpop', type: 'Totebag', color: 'Negro', size: 'Unisex' },
+    { id: 4, name: 'Playera BTS', price: 290, category: 'Kpop', type: 'Playera', color: 'Negro', size: 'L' },
+    { id: 5, name: 'Sudadera Crepusculo', price: 480, category: 'Pelicula', type: 'Sudadera', color: 'Verde', size: 'XXL' },
+    { id: 6, name: 'Sudadera Lana del Rey', price: 480, category: 'Artista', type: 'Sudadera', color: 'Rojo', size: 'S' },
 ];
 
 const App = () => {
@@ -71,13 +73,14 @@ const App = () => {
       </div>
       <div className="content">
         <h1>Productos</h1>
-        <ul>
+        <div className="product-grid">
           {filteredProducts.map(product => (
-            <li key={product.id}>
-              {product.name} - ${product.price} - {product.category} - {product.type} - {product.color} - {product.size}
-            </li>
+            <div key={product.id} className="product-item">
+              <img src={product.image} alt={product.name} />
+              <p>{product.description}</p>
+            </div>
           ))}
-        </ul>
+        </div>
         <div>
           <Button onIncrement={handleIncrement} onDecrement={handleDecrement} />
           <button>{counter}</button>

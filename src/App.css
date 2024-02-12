@@ -24,5 +24,19 @@ body {
 .content {
   width: 600px; /* Ancho del contenido */
 }
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Tres columnas iguales */
+  gap: 20px; /* Espacio entre las imágenes */
+}
+
+.product-item {
+  text-align: center;
+}
+
+.product-item img {
+  max-width: 100%;
+  height: auto;
+}
 
 

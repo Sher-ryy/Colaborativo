@@ -4,7 +4,6 @@ import Div from './components/Div';
 import Input from './components/Input';
 import "./App.css";
 
-
 const initialProducts = [
   { id: 1, name: 'Playera Naruto', price: 290, category: 'Anime', type: 'Playera', color: 'Amarillo', size: 'M' },
   { id: 2, name: 'Playera Natanael Cano', price: 290, category: 'Artista', type: 'Playera', color: 'Rojo', size: 'L' },
@@ -12,8 +11,6 @@ const initialProducts = [
   { id: 4, name: 'Playera BTS', price: 290, category: 'Kpop', type: 'Playera', color: 'Negro', size: 'L' },
   { id: 5, name: 'Sudadera Crepusculo', price: 480, category: 'Pelicula', type: 'Sudadera', color: 'Verde', size: 'XXL' },
   { id: 6, name: 'Sudadera Lana del Rey', price: 480, category: 'Artista', type: 'Sudadera', color: 'Rojo', size: 'S' },
-
-  // Agregar más productos según sea necesario
 ];
 
 const App = () => {
@@ -21,19 +18,17 @@ const App = () => {
   const [products, setProducts] = useState(initialProducts);
   const [filter, setFilter] = useState({ price: '', category: '', type: '', color: '', size: '' });
 
-// Función handleIncrement para la lógica de incremento
-const handleIncrement = () => {
-  if (counter < 100) {
-    setCounter(counter + 1);
-  }
-};
+  const handleIncrement = () => {
+    if (counter < 100) {
+      setCounter(counter + 1);
+    }
+  };
 
-// Función handleDecrement para la lógica de decremento
-const handleDecrement = () => {
-  if (counter > 0) {
-    setCounter(counter - 1);
-  }
-};
+  const handleDecrement = () => {
+    if (counter > 0) {
+      setCounter(counter - 1);
+    }
+  };
  
   const handleFilterChange = (key, value) => {
     setFilter({ ...filter, [key]: value });
@@ -50,44 +45,46 @@ const handleDecrement = () => {
   });
 
   return (
-    <div>
-      <h1>Productos</h1>
-      <div>
-        <label>Precio:</label>
-        <input type="text" value={filter.price} onChange={(e) => handleFilterChange('price', e.target.value)} />
+    <div className="container">
+      <div className="menu">
+        <h2>Menú</h2>
+        <div>
+          <label>Precio:</label>
+          <input type="text" value={filter.price} onChange={(e) => handleFilterChange('price', e.target.value)} />
+        </div>
+        <div>
+          <label>Tematica:</label>
+          <input type="text" value={filter.category} onChange={(e) => handleFilterChange('category', e.target.value)} />
+        </div>
+        <div>
+          <label>Tipo:</label>
+          <input type="text" value={filter.type} onChange={(e) => handleFilterChange('type', e.target.value)} />
+        </div>
+        <div>
+          <label>Color:</label>
+          <input type="text" value={filter.color} onChange={(e) => handleFilterChange('color', e.target.value)} />
+        </div>
+        <div>
+          <label>Talla:</label>
+          <input type="text" value={filter.size} onChange={(e) => handleFilterChange('size', e.target.value)} />
+        </div>
       </div>
-      <div>
-        <label>Tematica:</label>
-        <input type="text" value={filter.category} onChange={(e) => handleFilterChange('category', e.target.value)} />
+      <div className="content">
+        <h1>Productos</h1>
+        <ul>
+          {filteredProducts.map(product => (
+            <li key={product.id}>
+              {product.name} - ${product.price} - {product.category} - {product.type} - {product.color} - {product.size}
+            </li>
+          ))}
+        </ul>
+        <div>
+          <Button onIncrement={handleIncrement} onDecrement={handleDecrement} />
+          <button>{counter}</button>
+        </div>
       </div>
-      <div>
-        <label>Tipo:</label>
-        <input type="text" value={filter.type} onChange={(e) => handleFilterChange('type', e.target.value)} />
-      </div>
-      <div>
-        <label>Color:</label>
-        <input type="text" value={filter.color} onChange={(e) => handleFilterChange('color', e.target.value)} />
-      </div>
-      <div>
-        <label>Talla:</label>
-        <input type="text" value={filter.size} onChange={(e) => handleFilterChange('size', e.target.value)} />
-      </div>
-      <ul>
-        {filteredProducts.map(product => (
-          <li key={product.id}>
-            {product.name} - ${product.price} - {product.category} - {product.type} - {product.color} - {product.size}
-          </li>
-        ))}
-      </ul>
-
-      <div>
-      <div>
-      <Button onIncrement={handleIncrement} onDecrement={handleDecrement} />
-      <button>{counter}</button>
     </div>
-    </div>
-    </div>
-  )};
-
+  );
+};
 
 export default App;

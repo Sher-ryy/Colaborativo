@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from './components/Button';
 import Div from './components/Div';
 import Input from './components/Input';
@@ -32,6 +32,13 @@ const App = () => {
     }
   };
  
+  useEffect(() => {
+    console.log('useEffect', counter)
+  },
+    [counter])
+
+    
+
   const handleFilterChange = (key, value) => {
     setFilter({ ...filter, [key]: value });
   };

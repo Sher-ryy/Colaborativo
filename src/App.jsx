@@ -3,6 +3,8 @@ import Button from './components/Button';
 import Div from './components/Div';
 import Input from './components/Input';
 import "./App.css";
+import axios from 'axios';
+
 
 const initialProducts = [
     { id: 1, name: 'Playera Naruto', price: 290, category: 'Anime', type: 'Playera', color: 'Amarillo', size: 'M', image: 'url_de_la_imagen_1', description: 'Descripción de la playera Naruto' },
@@ -31,11 +33,6 @@ const App = () => {
       setCounter(counter - 1);
     }
   };
- 
-  useEffect(() => {
-    console.log('useEffect', counter)
-  },
-    [counter])
 
     
 
@@ -43,7 +40,7 @@ const App = () => {
     setFilter({ ...filter, [key]: value });
   };
 
-  
+  const [data, setData] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       try {

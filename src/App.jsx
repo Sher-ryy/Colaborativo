@@ -32,6 +32,13 @@ const App = () => {
     }
   };
  
+  useEffect(() => {
+    console.log('useEffect', counter)
+  },
+    [counter])
+
+    
+
   const handleFilterChange = (key, value) => {
     setFilter({ ...filter, [key]: value });
   };

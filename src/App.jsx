@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from './components/Button';
 import Div from './components/Div';
 import Input from './components/Input';
@@ -12,7 +12,7 @@ const initialProducts = [
     { id: 3, name: 'Totebag Stray Kids', price: 200, category: 'Kpop', type: 'Totebag', color: 'Negro', size: 'Unisex' },
     { id: 4, name: 'Playera BTS', price: 290, category: 'Kpop', type: 'Playera', color: 'Negro', size: 'L' },
     { id: 5, name: 'Sudadera Crepusculo', price: 480, category: 'Pelicula', type: 'Sudadera', color: 'Verde', size: 'XXL' },
-    { id: 6, name: 'Sudadera Lana del Rey', price: 480, category: 'Artista', type: 'Sudadera', color: 'Rojo', size: 'S' },
+    { id: 6, name: 'Sudadera Lana del Rey', price: 480, category: 'Artista', type: 'Sudadera', color: 'Rojo',size:'S'},
 ];
 
 const App = () => {
@@ -35,6 +35,20 @@ const App = () => {
   const handleFilterChange = (key, value) => {
     setFilter({ ...filter, [key]: value });
   };
+
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('https://rickandmortyapi.com/api/character');
+        setData(response.data.results);
+      } catch (error) {
+        console.error('Error al obtener datos:', error);
+      }
+    };
+    fetchData();
+  }, []);
+  
 
   const filteredProducts = products.filter(product => {
     return (

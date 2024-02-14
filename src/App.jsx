@@ -46,6 +46,7 @@ const App = () => {
       try {
         const response = await axios.get('https://rickandmortyapi.com/api/character');
         setData(response.data.results);
+        console.log(response.data.results);
       } catch (error) {
         console.error('Error al obtener datos:', error);
       }

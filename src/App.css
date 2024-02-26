@@ -1,7 +1,7 @@
 body {
   background-color: #ffe5ec;
-  margin: 0; /* Asegúrate de que no haya márgenes predeterminados */
-  padding: 0; /* Asegúrate de que no haya relleno predeterminado */
+  margin: 0;
+  padding: 0;
 }
 
 #root {
@@ -10,24 +10,29 @@ body {
 }
 
 .container {
-  display: flex;
+  display: center;
   justify-content: center;
-  align-items: center; /* Centrar verticalmente */
-  height: 100vh; /* Altura del viewport */
+  align-items: center;
+  height: 100vh;
 }
 
 .menu {
-  width: 200px;
-  margin-right: 20px; /* Espacio entre el menú y el contenido */
+  width: 200%; /* Cambiar el ancho al 100% para que se extienda horizontalmente */
+  display: flex;
+  justify-content: center; /* Alinear los elementos al final del contenedor (derecha) */
+  background-color: #ee8cc5; /* Color de fondo del menú */
+  padding: 20px; /* Añadir relleno para espaciar los elementos del menú */
+  
 }
 
 .content {
-  width: 600px; /* Ancho del contenido */
+  width: 600px;
 }
+
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Tres columnas iguales */
-  gap: 20px; /* Espacio entre las imágenes */
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
 }
 
 .product-item {
@@ -39,4 +44,41 @@ body {
   height: auto;
 }
 
+/* Estilos para el encabezado */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #ffffff; /* Color de fondo del encabezado */
+}
 
+.logo img {
+  width: 150px; /* Tamaño del logo */
+  height: auto;
+}
+
+.menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu li {
+  display: inline-block;
+  margin-left: 30px; /* Espaciado entre elementos del menú */
+}
+
+.menu li:first-child {
+  margin-left: 0; /* Elimina el margen izquierdo del primer elemento del menú */
+}
+
+.menu a {
+  text-decoration: none;
+  color: #ffffff; /* Color del texto del menú */
+  font-weight: bold;
+}
+
+.menu a:hover {
+  color: #e47dca; /* Cambia el color del texto al pasar el ratón sobre el enlace */
+}

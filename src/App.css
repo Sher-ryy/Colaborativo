@@ -50,7 +50,7 @@ body {
 .card {
   width: 300px;
   margin-bottom: 20px;
-  border: 1px solid #ccc;
+  border: 1px solid #f09ebd;
   border-radius: 5px;
   padding: 10px;
 }
@@ -67,4 +67,3 @@ body {
 .card p {
   margin: 5px 0;
 }
-

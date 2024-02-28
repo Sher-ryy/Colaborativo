@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Button from './components/Button';
-import Div from './components/Div';
-import Input from './components/Input';
 import "./App.css";
 import axios from 'axios';
 
-
-const initialProducts = [
-  document.addEventListener("DOMContentLoaded", function() {
+const initialProducts = [HEAddocument.addEventListener("DOMContentLoaded", function() {
     const products = [
       { id: 1, name: 'Playera Naruto', price: 290, category: 'Anime', type: 'Playera', color: 'Amarillo', size: 'M', image: 'url_de_la_imagen_1', description: 'Descripción de la playera Naruto' },
       { id: 2, name: 'Playera Natanael Cano', price: 290, category: 'Artista', type: 'Playera', color: 'Rojo', size: 'L', image: 'url_de_la_imagen_2', description: 'Descripción de la playera Natanael Cano' },
@@ -55,8 +51,6 @@ const App = () => {
     }
   };
 
-    
-
   const handleFilterChange = (key, value) => {
     setFilter({ ...filter, [key]: value });
   };
@@ -74,7 +68,6 @@ const App = () => {
     };
     fetchData();
   }, []);
-  
 
   const filteredProducts = products.filter(product => {
     return (
@@ -87,43 +80,58 @@ const App = () => {
   });
 
   return (
-    <div className="container">
-      <div className="menu">
-        <h2>Menú</h2>
-        <div>
-          <label>Precio:</label>
-          <input type="text" value={filter.price} onChange={(e) => handleFilterChange('price', e.target.value)} />
+    <div>
+      <header className="header">
+        <div className="logo">
+          <img src="imagenes/a ver/logo" alt="Logo de la empresa" />
         </div>
-        <div>
-          <label>Tematica:</label>
-          <input type="text" value={filter.category} onChange={(e) => handleFilterChange('category', e.target.value)} />
-        </div>
-        <div>
-          <label>Tipo:</label>
-          <input type="text" value={filter.type} onChange={(e) => handleFilterChange('type', e.target.value)} />
-        </div>
-        <div>
-          <label>Color:</label>
-          <input type="text" value={filter.color} onChange={(e) => handleFilterChange('color', e.target.value)} />
-        </div>
-        <div>
-          <label>Talla:</label>
-          <input type="text" value={filter.size} onChange={(e) => handleFilterChange('size', e.target.value)} />
-        </div>
-      </div>
+        <nav className="menu">
+          <ul>
+            <li><a href="#">Inicio</a></li>
+            <li><a href="#productos">Productos</a></li> {/* Cambiado el href para desplazarse a la sección de productos */}
+            <li><a href="#">Contacto</a></li>
+          </ul>
+        </nav>
+      </header>
       <div className="content">
-        <h1>Productos</h1>
         <div className="product-grid">
-          {filteredProducts.map(product => (
-            <div key={product.id} className="product-item">
-              <img src={product.image} alt={product.name} />
-              <p>{product.description}</p>
-            </div>
-          ))}
+          <div id="productos">
+            <h1>Productos</h1>
+            {filteredProducts.map(product => (
+              <div key={product.id} className="product-item">
+                <img src={product.image} alt={product.name} />
+                <p>{product.description}</p>
+              </div>
+            ))}
+          </div>
         </div>
         <div>
           <Button onIncrement={handleIncrement} onDecrement={handleDecrement} />
           <button>{counter}</button>
+        </div>
+        <div className="container">
+          <div className="menu">
+            <div>
+              <label>Precio:</label>
+              <input type="text" value={filter.price} onChange={(e) => handleFilterChange('price', e.target.value)} />
+            </div>
+            <div>
+              <label>Tematica:</label>
+              <input type="text" value={filter.category} onChange={(e) => handleFilterChange('category', e.target.value)} />
+            </div>
+            <div>
+              <label>Tipo:</label>
+              <input type="text" value={filter.type} onChange={(e) => handleFilterChange('type', e.target.value)} />
+            </div>
+            <div>
+              <label>Color:</label>
+              <input type="text" value={filter.color} onChange={(e) => handleFilterChange('color', e.target.value)} />
+            </div>
+            <div>
+              <label>Talla:</label>
+              <input type="text" value={filter.size} onChange={(e) => handleFilterChange('size', e.target.value)} />
+            </div>
+          </div>
         </div>
       </div>
     </div>

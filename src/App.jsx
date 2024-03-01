@@ -1,36 +1,35 @@
 import React, { useEffect, useState } from 'react';
-import Button from './components/Button';
 import axios from 'axios';
+import './App.css';
 
 const App = () => {
   const [counter, setCounter] = useState(0);
   const [products, setProducts] = useState([]);
-  const [filter, setFilter] = useState({ price: '', category: '', type: '', color: '', size: '' });
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('https://rickandmortyapi.com/api/character');
-        setData(response.data.results);
-      } catch (error) {
-        console.error('Error al obtener datos:', error);
-      }
-    };
-    fetchData();
-  }, []);
+  const [filterValues, setFilterValues] = useState({
+    price: '',
+    category: '',
+    type: '',
+    color: '',
+    size: '',
+  });
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [currentView, setCurrentView] = useState('inicio');
 
   useEffect(() => {
     const initialProducts = [
-      { id: 1, name: 'Playera Naruto', price: 290, category: 'Anime', type: 'Playera', color: 'Amarillo', size: 'M', image: 'url_de_la_imagen_1', description: 'Descripción de la playera Naruto' },
-      { id: 2, name: 'Playera Natanael Cano', price: 290, category: 'Artista', type: 'Playera', color: 'Rojo', size: 'L', image: 'url_de_la_imagen_2', description: 'Descripción de la playera Natanael Cano' },
-      { id: 3, name: 'Totebag Stray Kids', price: 200, category: 'Kpop', type: 'Totebag', color: 'Negro', size: 'Unisex', image: 'url_de_la_imagen_3', description: 'Descripción de la totebag Stray Kids' },
-      { id: 4, name: 'Playera BTS', price: 290, category: 'Kpop', type: 'Playera', color: 'Negro', size: 'L', image: 'url_de_la_imagen_4', description: 'Descripción de la playera BTS' },
-      { id: 5, name: 'Sudadera Crepusculo', price: 480, category: 'Pelicula', type: 'Sudadera', color: 'Verde', size: 'XXL', image: 'url_de_la_imagen_5', description: 'Descripción de la sudadera Crepusculo' },
-      { id: 6, name: 'Sudadera Lana de', price: 400, category: 'Pelicula', type: 'Sudadera', color: 'Azul', size: 'L', image: 'url_de_la_imagen_6', description: 'Descripción de la sudadera Lana de' }
+      // ...
     ];
     setProducts(initialProducts);
   }, []);
+
+  useEffect(() => {
+    setFilteredProducts(
+      products.filter((product) =>
+        Object.values(filterValues)
+          .every((value) => value === '' || product[Object.keys(product)].toString().toLowerCase().includes(value.toLowerCase()))
+      )
+    );
+  }, [filterValues, products]);
 
   const handleIncrement = () => {
     if (counter < 100) {
@@ -44,84 +43,69 @@ const App = () => {
     }
   };
 
-  const handleFilterChange = (key, value) => {
-    setFilter({ ...filter, [key]: value });
+  const handleFilterChange = (e) => {
+    setFilterValues({ ...filterValues, [e.target.name]: e.target.value });
   };
 
-  const filteredProducts = products.filter(product => {
-    return (
-      product.price.toString().includes(filter.price) &&
-      product.category.toLowerCase().includes(filter.category.toLowerCase()) &&
-      product.type.toLowerCase().includes(filter.type.toLowerCase()) &&
-      product.color.toLowerCase().includes(filter.color.toLowerCase()) &&
-      product.size.toLowerCase().includes(filter.size.toLowerCase())
-    );
-  });
+  const scrollToView = (view) => {
+    const element = document.getElementById(view);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <div>
       <header className="header">
-        <div className="logo">
-          <img src="imagenes/a ver/logo" alt="Logo de la empresa" />
+        <div className="logo-container">
+          <img src="src/assets/PINKCHERRYLOGO.jpg" alt="Logo de la empresa" className="logo-img" />
         </div>
         <nav className="menu">
-          <ul>
-            <li><a href="#">Inicio</a></li>
-            <li><a href="#productos">Productos</a></li>
-            <li><a href="#">Contacto</a></li>
-          </ul>
+          <button className="menu-item" onClick={() => scrollToView('inicio')}>
+            Inicio
+          </button>
+          <button className="menu-item" onClick={() => scrollToView('prendas')}>
+            Prendas
+          </button>
+          <button className="menu-item" onClick={() => scrollToView('contactanos')}>
+            Contactanos
+          </button>
         </nav>
       </header>
-      <div className="content">
-        <div className="product-grid">
-          <div id="productos">
-            <h1>Productos</h1>
-            <div className="card-container">
-              {filteredProducts.map(product => (
-                <div key={product.id} className="card">
-                  <img src={product.image} alt={product.name} />
-                  <h3>{product.name}</h3>
-                  <p><strong>Precio:</strong> ${product.price}</p>
-                  <p><strong>Categoría:</strong> {product.category}</p>
-                  <p><strong>Tipo:</strong> {product.type}</p>
-                  <p><strong>Color:</strong> {product.color}</p>
-                  <p><strong>Talla:</strong> {product.size}</p>
-                  <p><strong>Descripción:</strong> {product.description}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-        <div>
-          <Button onIncrement={handleIncrement} onDecrement={handleDecrement} />
-          <button>{counter}</button>
-        </div>
-        <div className="container">
-          <div className="menu">
-            <div>
-              <label>Precio:</label>
-              <input type="text" value={filter.price} onChange={(e) => handleFilterChange('price', e.target.value)} />
-            </div>
-            <div>
-              <label>Tematica:</label>
-              <input type="text" value={filter.category} onChange={(e) => handleFilterChange('category', e.target.value)} />
-            </div>
-            <div>
-              <label>Tipo:</label>
-              <input type="text" value={filter.type} onChange={(e) => handleFilterChange('type', e.target.value)} />
-            </div>
-            <div>
-              <label>Color:</label>
-              <input type="text" value={filter.color} onChange={(e) => handleFilterChange('color', e.target.value)} />
-            </div>
-            <div>
-              <label>Talla:</label>
-              <input type="text" value={filter.size} onChange={(e) => handleFilterChange('size', e.target.value)} />
-            </div>
-          </div>
+      
+      <div>
+        <section id="inicio" className="view">
+          <h1>¡¡¡Descubre la Magia de Pink Cerry!!!🍒🌟</h1>
+          <h3>¡Bienvenidos a Pink Cerry!🍒🍒</h3>
+
+<p>¡Nos emociona mucho tenerte aquí explorando nuestra colección de ropa unisex con diseños frescos, creativos y personalizados a precios irresistibles! En Pink Cerry, creemos en la moda que no conoce límites de género y que celebra la individualidad de cada persona.</p>
+
+<p>Nuestro equipo se esfuerza por ofrecerte piezas únicas que no solo te hagan lucir bien, sino que también te hagan sentir genial. Desde camisetas con estampados únicos hasta sudaderas con diseños vanguardistas, tenemos algo para cada estilo y ocasión.</p>
+
+<p>Estamos seguros de que encontrarás algo que te encante aquí en Pink Cerry. ¡Así que no dudes en explorar, llenar tu carrito y llevarte a casa un poco de nuestra magia!</p>
+
+<p>¿Listo para comenzar tu aventura de compras? ¡Síguenos en Instagram _pink.cherryy_ para estar al tanto de las últimas novedades y no dudes en ponerte en contacto con nosotros si necesitas ayuda o tienes alguna pregunta!</p>
+
+<p>¡Gracias por elegir Pink Cerry, donde la moda es sinónimo de diversión y autenticidad!</p>
+
+<p>¡Feliz exploración y feliz compra!</p>
+
+<a href="https://www.instagram.com/_pink.cherryy_/" target="_blank">@_pink.cherryy_</a>
+        </section>
+
+      </div>
+      <div>
+      <section id="prendas" className="view">
+          <h1>"Estilo sin Límites"🍒🌟</h1>
+        </section>
+      <div>
+        <section id="contactanos" className="view">
+          <h1>no se, bb</h1>
+        </section>
         </div>
       </div>
     </div>
+  
   );
 };
 

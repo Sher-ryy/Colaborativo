@@ -14,13 +14,11 @@ const App = () => {
   });
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [currentView, setCurrentView] = useState('inicio');
+  const [data, setData] = useState([]);
 
   useEffect(() => {
-    const initialProducts = [
-      // ...
-    ];
-    setProducts(initialProducts);
-  }, []);
+    console.log('Product IDs:', products.map(product => product.id));
+  }, [products]);
 
   useEffect(() => {
     setFilteredProducts(
@@ -30,6 +28,21 @@ const App = () => {
       )
     );
   }, [filterValues, products]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://jsonplaceholder.typicode.com/users/1/posts');
+        const data = await response.json();
+        setData(data);
+        console.log(data);
+      } catch (error) {
+        console.error('Error al obtener datos:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleIncrement = () => {
     if (counter < 100) {
